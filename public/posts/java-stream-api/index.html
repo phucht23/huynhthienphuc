@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stream API trong Java 8&#43; - Blog của Thien Phuc</title>
+    
+    
+    <link rel="stylesheet" href="/css/profile-new.css">
+    
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+         
+        body > header:not(.global-nav),
+        body > nav:first-child:not(.global-nav),
+        .site-header,
+        .main-header {
+            display: none !important;
+        }
+        
+        body {
+            margin: 0 !important;
+            padding: 0 !important;
+            font-family: 'Poppins', sans-serif !important;
+            background: #1e1e1f !important;
+            color: #d4d4d4 !important;
+        }
+    </style>
+</head>
+<body>
+    
+<style>
+body > header:not(.global-nav), body > nav:first-child:not(.global-nav) { display: none !important; }
+</style>
+
+<nav class="global-nav">
+    <div class="nav-container">
+        <a href="/" class="nav-logo">Blog của Thien Phuc</a>
+        <ul class="nav-menu">
+            <li><a href="/" class="nav-link">Home</a></li>
+            <li><a href="/posts/" class="nav-link">Blog</a></li>
+            <li><a href="/about/" class="nav-link">Profile</a></li>
+            <li><a href="/tags/" class="nav-link">Tags</a></li>
+        </ul>
+    </div>
+</nav>
+
+<article class="post-single">
+    <header class="post-header">
+        <h1>Stream API trong Java 8&#43;</h1>
+        <div class="post-meta">
+            <time>21/10/2025</time>
+            
+            <span>•</span>
+            <span>Java</span>
+            
+        </div>
+    </header>
+    
+    <div class="post-content">
+        <h1 id="stream-api-trong-java">Stream API trong Java</h1>
+<p>Stream API (Java 8+) cho phép xử lý tập hợp dữ liệu theo phong cách functional programming.</p>
+<h2 id="stream-là-gì">Stream là gì?</h2>
+<p>Stream là chuỗi các phần tử hỗ trợ các thao tác tuần tự và song song.</p>
+<p><strong>Đặc điểm:</strong></p>
+<ul>
+<li>Không lưu trữ dữ liệu</li>
+<li>Functional - không thay đổi nguồn</li>
+<li>Lazy evaluation - chỉ tính khi cần</li>
+<li>Có thể vô hạn</li>
+</ul>
+<h2 id="tạo-stream">Tạo Stream</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#f92672">import</span> java.util.Arrays;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> java.util.List;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> java.util.stream.Stream;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">CreateStreamExample</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span>(String<span style="color:#f92672">[]</span> args) {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 1. Từ Collection</span>
+</span></span><span style="display:flex;"><span>        List<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> list <span style="color:#f92672">=</span> Arrays.<span style="color:#a6e22e">asList</span>(<span style="color:#e6db74">&#34;A&#34;</span>, <span style="color:#e6db74">&#34;B&#34;</span>, <span style="color:#e6db74">&#34;C&#34;</span>);
+</span></span><span style="display:flex;"><span>        Stream<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> stream1 <span style="color:#f92672">=</span> list.<span style="color:#a6e22e">stream</span>();
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 2. Từ Array</span>
+</span></span><span style="display:flex;"><span>        String<span style="color:#f92672">[]</span> array <span style="color:#f92672">=</span> {<span style="color:#e6db74">&#34;X&#34;</span>, <span style="color:#e6db74">&#34;Y&#34;</span>, <span style="color:#e6db74">&#34;Z&#34;</span>};
+</span></span><span style="display:flex;"><span>        Stream<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> stream2 <span style="color:#f92672">=</span> Arrays.<span style="color:#a6e22e">stream</span>(array);
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 3. Từ Stream.of()</span>
+</span></span><span style="display:flex;"><span>        Stream<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;</span> stream3 <span style="color:#f92672">=</span> Stream.<span style="color:#a6e22e">of</span>(1, 2, 3, 4, 5);
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 4. Stream vô hạn</span>
+</span></span><span style="display:flex;"><span>        Stream<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;</span> infiniteStream <span style="color:#f92672">=</span> Stream.<span style="color:#a6e22e">iterate</span>(0, n <span style="color:#f92672">-&gt;</span> n <span style="color:#f92672">+</span> 2);
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 5. Stream.generate()</span>
+</span></span><span style="display:flex;"><span>        Stream<span style="color:#f92672">&lt;</span>Double<span style="color:#f92672">&gt;</span> randomNumbers <span style="color:#f92672">=</span> Stream.<span style="color:#a6e22e">generate</span>(Math::random);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="filter---lọc-phần-tử">Filter - Lọc phần tử</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#f92672">import</span> java.util.List;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> java.util.stream.Collectors;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">FilterExample</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span>(String<span style="color:#f92672">[]</span> args) {
+</span></span><span style="display:flex;"><span>        List<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;</span> numbers <span style="color:#f92672">=</span> Arrays.<span style="color:#a6e22e">asList</span>(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Lọc số chẵn</span>
+</span></span><span style="display:flex;"><span>        List<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;</span> evenNumbers <span style="color:#f92672">=</span> numbers.<span style="color:#a6e22e">stream</span>()
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">filter</span>(n <span style="color:#f92672">-&gt;</span> n <span style="color:#f92672">%</span> 2 <span style="color:#f92672">==</span> 0)
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">collect</span>(Collectors.<span style="color:#a6e22e">toList</span>());
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;Số chẵn: &#34;</span> <span style="color:#f92672">+</span> evenNumbers);
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Output: [2, 4, 6, 8, 10]</span>
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Lọc và in ra</span>
+</span></span><span style="display:flex;"><span>        numbers.<span style="color:#a6e22e">stream</span>()
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">filter</span>(n <span style="color:#f92672">-&gt;</span> n <span style="color:#f92672">&gt;</span> 5)
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">forEach</span>(n <span style="color:#f92672">-&gt;</span> System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;Số &gt; 5: &#34;</span> <span style="color:#f92672">+</span> n));
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="map---chuyển-đổi-phần-tử">Map - Chuyển đổi phần tử</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MapExample</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span>(String<span style="color:#f92672">[]</span> args) {
+</span></span><span style="display:flex;"><span>        List<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> names <span style="color:#f92672">=</span> Arrays.<span style="color:#a6e22e">asList</span>(<span style="color:#e6db74">&#34;alice&#34;</span>, <span style="color:#e6db74">&#34;bob&#34;</span>, <span style="color:#e6db74">&#34;charlie&#34;</span>);
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Chuyển sang chữ hoa</span>
+</span></span><span style="display:flex;"><span>        List<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> upperNames <span style="color:#f92672">=</span> names.<span style="color:#a6e22e">stream</span>()
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">map</span>(String::toUpperCase)
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">collect</span>(Collectors.<span style="color:#a6e22e">toList</span>());
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(upperNames);
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Output: [ALICE, BOB, CHARLIE]</span>
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Lấy độ dài tên</span>
+</span></span><span style="display:flex;"><span>        List<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;</span> nameLengths <span style="color:#f92672">=</span> names.<span style="color:#a6e22e">stream</span>()
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">map</span>(String::length)
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">collect</span>(Collectors.<span style="color:#a6e22e">toList</span>());
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;Độ dài: &#34;</span> <span style="color:#f92672">+</span> nameLengths);
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Output: [5, 3, 7]</span>
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Nhân đôi số</span>
+</span></span><span style="display:flex;"><span>        List<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;</span> numbers <span style="color:#f92672">=</span> Arrays.<span style="color:#a6e22e">asList</span>(1, 2, 3, 4, 5);
+</span></span><span style="display:flex;"><span>        List<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;</span> doubled <span style="color:#f92672">=</span> numbers.<span style="color:#a6e22e">stream</span>()
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">map</span>(n <span style="color:#f92672">-&gt;</span> n <span style="color:#f92672">*</span> 2)
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">collect</span>(Collectors.<span style="color:#a6e22e">toList</span>());
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;Nhân đôi: &#34;</span> <span style="color:#f92672">+</span> doubled);
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Output: [2, 4, 6, 8, 10]</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="reduce---tính-toán-tổng-hợp">Reduce - Tính toán tổng hợp</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#f92672">import</span> java.util.Optional;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ReduceExample</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span>(String<span style="color:#f92672">[]</span> args) {
+</span></span><span style="display:flex;"><span>        List<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;</span> numbers <span style="color:#f92672">=</span> Arrays.<span style="color:#a6e22e">asList</span>(1, 2, 3, 4, 5);
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Tính tổng</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> sum <span style="color:#f92672">=</span> numbers.<span style="color:#a6e22e">stream</span>()
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">reduce</span>(0, (a, b) <span style="color:#f92672">-&gt;</span> a <span style="color:#f92672">+</span> b);
+</span></span><span style="display:flex;"><span>        System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;Tổng: &#34;</span> <span style="color:#f92672">+</span> sum); <span style="color:#75715e">// 15</span>
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Hoặc dùng Integer::sum</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> sum2 <span style="color:#f92672">=</span> numbers.<span style="color:#a6e22e">stream</span>()
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">reduce</span>(0, Integer::sum);
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Tìm max</span>
+</span></span><span style="display:flex;"><span>        Optional<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;</span> max <span style="color:#f92672">=</span> numbers.<span style="color:#a6e22e">stream</span>()
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">reduce</span>((a, b) <span style="color:#f92672">-&gt;</span> a <span style="color:#f92672">&gt;</span> b <span style="color:#f92672">?</span> a : b);
+</span></span><span style="display:flex;"><span>        max.<span style="color:#a6e22e">ifPresent</span>(m <span style="color:#f92672">-&gt;</span> System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;Max: &#34;</span> <span style="color:#f92672">+</span> m));
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Tìm min</span>
+</span></span><span style="display:flex;"><span>        Optional<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;</span> min <span style="color:#f92672">=</span> numbers.<span style="color:#a6e22e">stream</span>()
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">reduce</span>(Integer::min);
+</span></span><span style="display:flex;"><span>        min.<span style="color:#a6e22e">ifPresent</span>(m <span style="color:#f92672">-&gt;</span> System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;Min: &#34;</span> <span style="color:#f92672">+</span> m));
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Nối chuỗi</span>
+</span></span><span style="display:flex;"><span>        List<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> words <span style="color:#f92672">=</span> Arrays.<span style="color:#a6e22e">asList</span>(<span style="color:#e6db74">&#34;Java&#34;</span>, <span style="color:#e6db74">&#34;Stream&#34;</span>, <span style="color:#e6db74">&#34;API&#34;</span>);
+</span></span><span style="display:flex;"><span>        String sentence <span style="color:#f92672">=</span> words.<span style="color:#a6e22e">stream</span>()
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">reduce</span>(<span style="color:#e6db74">&#34;&#34;</span>, (a, b) <span style="color:#f92672">-&gt;</span> a <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34; &#34;</span> <span style="color:#f92672">+</span> b);
+</span></span><span style="display:flex;"><span>        System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(sentence.<span style="color:#a6e22e">trim</span>()); <span style="color:#75715e">// &#34;Java Stream API&#34;</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="collect---thu-thập-kết-quả">Collect - Thu thập kết quả</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#f92672">import</span> java.util.stream.Collectors;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> java.util.Set;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> java.util.Map;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">CollectExample</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span>(String<span style="color:#f92672">[]</span> args) {
+</span></span><span style="display:flex;"><span>        List<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> names <span style="color:#f92672">=</span> Arrays.<span style="color:#a6e22e">asList</span>(<span style="color:#e6db74">&#34;Alice&#34;</span>, <span style="color:#e6db74">&#34;Bob&#34;</span>, <span style="color:#e6db74">&#34;Charlie&#34;</span>, <span style="color:#e6db74">&#34;David&#34;</span>);
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Collect to List</span>
+</span></span><span style="display:flex;"><span>        List<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> filteredNames <span style="color:#f92672">=</span> names.<span style="color:#a6e22e">stream</span>()
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">filter</span>(n <span style="color:#f92672">-&gt;</span> n.<span style="color:#a6e22e">length</span>() <span style="color:#f92672">&gt;</span> 4)
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">collect</span>(Collectors.<span style="color:#a6e22e">toList</span>());
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Collect to Set</span>
+</span></span><span style="display:flex;"><span>        Set<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> nameSet <span style="color:#f92672">=</span> names.<span style="color:#a6e22e">stream</span>()
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">collect</span>(Collectors.<span style="color:#a6e22e">toSet</span>());
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Join strings</span>
+</span></span><span style="display:flex;"><span>        String joined <span style="color:#f92672">=</span> names.<span style="color:#a6e22e">stream</span>()
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">collect</span>(Collectors.<span style="color:#a6e22e">joining</span>(<span style="color:#e6db74">&#34;, &#34;</span>));
+</span></span><span style="display:flex;"><span>        System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(joined); <span style="color:#75715e">// &#34;Alice, Bob, Charlie, David&#34;</span>
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Group by length</span>
+</span></span><span style="display:flex;"><span>        Map<span style="color:#f92672">&lt;</span>Integer, List<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;&gt;</span> groupedByLength <span style="color:#f92672">=</span> names.<span style="color:#a6e22e">stream</span>()
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">collect</span>(Collectors.<span style="color:#a6e22e">groupingBy</span>(String::length));
+</span></span><span style="display:flex;"><span>        System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(groupedByLength);
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// {3=[Bob], 5=[Alice, David], 7=[Charlie]}</span>
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Count</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">long</span> count <span style="color:#f92672">=</span> names.<span style="color:#a6e22e">stream</span>()
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">filter</span>(n <span style="color:#f92672">-&gt;</span> n.<span style="color:#a6e22e">startsWith</span>(<span style="color:#e6db74">&#34;A&#34;</span>))
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">count</span>();
+</span></span><span style="display:flex;"><span>        System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;Tên bắt đầu bằng A: &#34;</span> <span style="color:#f92672">+</span> count);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="sorted---sắp-xếp">Sorted - Sắp xếp</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#f92672">import</span> java.util.Comparator;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">SortedExample</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span>(String<span style="color:#f92672">[]</span> args) {
+</span></span><span style="display:flex;"><span>        List<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> names <span style="color:#f92672">=</span> Arrays.<span style="color:#a6e22e">asList</span>(<span style="color:#e6db74">&#34;Charlie&#34;</span>, <span style="color:#e6db74">&#34;Alice&#34;</span>, <span style="color:#e6db74">&#34;Bob&#34;</span>, <span style="color:#e6db74">&#34;David&#34;</span>);
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Sắp xếp tăng dần</span>
+</span></span><span style="display:flex;"><span>        List<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> sorted <span style="color:#f92672">=</span> names.<span style="color:#a6e22e">stream</span>()
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">sorted</span>()
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">collect</span>(Collectors.<span style="color:#a6e22e">toList</span>());
+</span></span><span style="display:flex;"><span>        System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;Tăng dần: &#34;</span> <span style="color:#f92672">+</span> sorted);
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Sắp xếp giảm dần</span>
+</span></span><span style="display:flex;"><span>        List<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> reverseSorted <span style="color:#f92672">=</span> names.<span style="color:#a6e22e">stream</span>()
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">sorted</span>(Comparator.<span style="color:#a6e22e">reverseOrder</span>())
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">collect</span>(Collectors.<span style="color:#a6e22e">toList</span>());
+</span></span><span style="display:flex;"><span>        System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;Giảm dần: &#34;</span> <span style="color:#f92672">+</span> reverseSorted);
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Sắp xếp theo độ dài</span>
+</span></span><span style="display:flex;"><span>        List<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> sortedByLength <span style="color:#f92672">=</span> names.<span style="color:#a6e22e">stream</span>()
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">sorted</span>(Comparator.<span style="color:#a6e22e">comparing</span>(String::length))
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">collect</span>(Collectors.<span style="color:#a6e22e">toList</span>());
+</span></span><span style="display:flex;"><span>        System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;Theo độ dài: &#34;</span> <span style="color:#f92672">+</span> sortedByLength);
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Sắp xếp số</span>
+</span></span><span style="display:flex;"><span>        List<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;</span> numbers <span style="color:#f92672">=</span> Arrays.<span style="color:#a6e22e">asList</span>(5, 2, 8, 1, 9, 3);
+</span></span><span style="display:flex;"><span>        List<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;</span> sortedNumbers <span style="color:#f92672">=</span> numbers.<span style="color:#a6e22e">stream</span>()
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">sorted</span>()
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">collect</span>(Collectors.<span style="color:#a6e22e">toList</span>());
+</span></span><span style="display:flex;"><span>        System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;Số sắp xếp: &#34;</span> <span style="color:#f92672">+</span> sortedNumbers);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="ví-dụ-thực-tế---quản-lý-sinh-viên">Ví dụ thực tế - Quản lý sinh viên</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Student</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> String name;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">int</span> age;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">double</span> gpa;
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">Student</span>(String name, <span style="color:#66d9ef">int</span> age, <span style="color:#66d9ef">double</span> gpa) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span> <span style="color:#f92672">=</span> name;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">age</span> <span style="color:#f92672">=</span> age;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">gpa</span> <span style="color:#f92672">=</span> gpa;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Getters</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> String <span style="color:#a6e22e">getName</span>() { <span style="color:#66d9ef">return</span> name; }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">getAge</span>() { <span style="color:#66d9ef">return</span> age; }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">double</span> <span style="color:#a6e22e">getGpa</span>() { <span style="color:#66d9ef">return</span> gpa; }
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> String <span style="color:#a6e22e">toString</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> name <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34; (GPA: &#34;</span> <span style="color:#f92672">+</span> gpa <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;)&#34;</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">StudentStreamExample</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span>(String<span style="color:#f92672">[]</span> args) {
+</span></span><span style="display:flex;"><span>        List<span style="color:#f92672">&lt;</span>Student<span style="color:#f92672">&gt;</span> students <span style="color:#f92672">=</span> Arrays.<span style="color:#a6e22e">asList</span>(
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">new</span> Student(<span style="color:#e6db74">&#34;Alice&#34;</span>, 20, 3.<span style="color:#a6e22e">8</span>),
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">new</span> Student(<span style="color:#e6db74">&#34;Bob&#34;</span>, 22, 3.<span style="color:#a6e22e">2</span>),
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">new</span> Student(<span style="color:#e6db74">&#34;Charlie&#34;</span>, 21, 3.<span style="color:#a6e22e">9</span>),
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">new</span> Student(<span style="color:#e6db74">&#34;David&#34;</span>, 23, 3.<span style="color:#a6e22e">5</span>),
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">new</span> Student(<span style="color:#e6db74">&#34;Eve&#34;</span>, 20, 3.<span style="color:#a6e22e">7</span>)
+</span></span><span style="display:flex;"><span>        );
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 1. Lọc sinh viên GPA &gt;= 3.5</span>
+</span></span><span style="display:flex;"><span>        System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;=== Sinh viên GPA &gt;= 3.5 ===&#34;</span>);
+</span></span><span style="display:flex;"><span>        students.<span style="color:#a6e22e">stream</span>()
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">filter</span>(s <span style="color:#f92672">-&gt;</span> s.<span style="color:#a6e22e">getGpa</span>() <span style="color:#f92672">&gt;=</span> 3.<span style="color:#a6e22e">5</span>)
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">forEach</span>(System.<span style="color:#a6e22e">out</span>::println);
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 2. Tính GPA trung bình</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">double</span> avgGpa <span style="color:#f92672">=</span> students.<span style="color:#a6e22e">stream</span>()
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">mapToDouble</span>(Student::getGpa)
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">average</span>()
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">orElse</span>(0.<span style="color:#a6e22e">0</span>);
+</span></span><span style="display:flex;"><span>        System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;\nGPA trung bình: &#34;</span> <span style="color:#f92672">+</span> avgGpa);
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 3. Tìm sinh viên có GPA cao nhất</span>
+</span></span><span style="display:flex;"><span>        Student topStudent <span style="color:#f92672">=</span> students.<span style="color:#a6e22e">stream</span>()
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">max</span>(Comparator.<span style="color:#a6e22e">comparing</span>(Student::getGpa))
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">orElse</span>(<span style="color:#66d9ef">null</span>);
+</span></span><span style="display:flex;"><span>        System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;Sinh viên xuất sắc nhất: &#34;</span> <span style="color:#f92672">+</span> topStudent);
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 4. Sắp xếp theo GPA giảm dần</span>
+</span></span><span style="display:flex;"><span>        System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;\n=== Danh sách theo GPA ===&#34;</span>);
+</span></span><span style="display:flex;"><span>        students.<span style="color:#a6e22e">stream</span>()
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">sorted</span>(Comparator.<span style="color:#a6e22e">comparing</span>(Student::getGpa).<span style="color:#a6e22e">reversed</span>())
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">forEach</span>(System.<span style="color:#a6e22e">out</span>::println);
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 5. Lấy danh sách tên sinh viên</span>
+</span></span><span style="display:flex;"><span>        List<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> names <span style="color:#f92672">=</span> students.<span style="color:#a6e22e">stream</span>()
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">map</span>(Student::getName)
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">collect</span>(Collectors.<span style="color:#a6e22e">toList</span>());
+</span></span><span style="display:flex;"><span>        System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;\nDanh sách tên: &#34;</span> <span style="color:#f92672">+</span> names);
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 6. Nhóm sinh viên theo tuổi</span>
+</span></span><span style="display:flex;"><span>        Map<span style="color:#f92672">&lt;</span>Integer, List<span style="color:#f92672">&lt;</span>Student<span style="color:#f92672">&gt;&gt;</span> groupedByAge <span style="color:#f92672">=</span> students.<span style="color:#a6e22e">stream</span>()
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">collect</span>(Collectors.<span style="color:#a6e22e">groupingBy</span>(Student::getAge));
+</span></span><span style="display:flex;"><span>        System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;\nNhóm theo tuổi: &#34;</span> <span style="color:#f92672">+</span> groupedByAge);
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 7. Đếm số sinh viên &gt;= 21 tuổi</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">long</span> count <span style="color:#f92672">=</span> students.<span style="color:#a6e22e">stream</span>()
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">filter</span>(s <span style="color:#f92672">-&gt;</span> s.<span style="color:#a6e22e">getAge</span>() <span style="color:#f92672">&gt;=</span> 21)
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">count</span>();
+</span></span><span style="display:flex;"><span>        System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;\nSố SV &gt;= 21 tuổi: &#34;</span> <span style="color:#f92672">+</span> count);
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 8. Kiểm tra có sinh viên GPA 4.0 không</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">boolean</span> hasTopGpa <span style="color:#f92672">=</span> students.<span style="color:#a6e22e">stream</span>()
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">anyMatch</span>(s <span style="color:#f92672">-&gt;</span> s.<span style="color:#a6e22e">getGpa</span>() <span style="color:#f92672">==</span> 4.<span style="color:#a6e22e">0</span>);
+</span></span><span style="display:flex;"><span>        System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;Có SV GPA 4.0: &#34;</span> <span style="color:#f92672">+</span> hasTopGpa);
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 9. Lấy 3 sinh viên đầu tiên có GPA cao nhất</span>
+</span></span><span style="display:flex;"><span>        System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;\n=== Top 3 sinh viên ===&#34;</span>);
+</span></span><span style="display:flex;"><span>        students.<span style="color:#a6e22e">stream</span>()
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">sorted</span>(Comparator.<span style="color:#a6e22e">comparing</span>(Student::getGpa).<span style="color:#a6e22e">reversed</span>())
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">limit</span>(3)
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">forEach</span>(System.<span style="color:#a6e22e">out</span>::println);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="parallel-stream---xử-lý-song-song">Parallel Stream - Xử lý song song</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ParallelStreamExample</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span>(String<span style="color:#f92672">[]</span> args) {
+</span></span><span style="display:flex;"><span>        List<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;</span> numbers <span style="color:#f92672">=</span> Arrays.<span style="color:#a6e22e">asList</span>(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Sequential stream</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">long</span> start1 <span style="color:#f92672">=</span> System.<span style="color:#a6e22e">currentTimeMillis</span>();
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> sum1 <span style="color:#f92672">=</span> numbers.<span style="color:#a6e22e">stream</span>()
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">map</span>(n <span style="color:#f92672">-&gt;</span> n <span style="color:#f92672">*</span> 2)
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">reduce</span>(0, Integer::sum);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">long</span> time1 <span style="color:#f92672">=</span> System.<span style="color:#a6e22e">currentTimeMillis</span>() <span style="color:#f92672">-</span> start1;
+</span></span><span style="display:flex;"><span>        System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;Sequential: &#34;</span> <span style="color:#f92672">+</span> sum1 <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34; - &#34;</span> <span style="color:#f92672">+</span> time1 <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;ms&#34;</span>);
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Parallel stream - nhanh hơn với dữ liệu lớn</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">long</span> start2 <span style="color:#f92672">=</span> System.<span style="color:#a6e22e">currentTimeMillis</span>();
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> sum2 <span style="color:#f92672">=</span> numbers.<span style="color:#a6e22e">parallelStream</span>()
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">map</span>(n <span style="color:#f92672">-&gt;</span> n <span style="color:#f92672">*</span> 2)
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">reduce</span>(0, Integer::sum);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">long</span> time2 <span style="color:#f92672">=</span> System.<span style="color:#a6e22e">currentTimeMillis</span>() <span style="color:#f92672">-</span> start2;
+</span></span><span style="display:flex;"><span>        System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;Parallel: &#34;</span> <span style="color:#f92672">+</span> sum2 <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34; - &#34;</span> <span style="color:#f92672">+</span> time2 <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;ms&#34;</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="các-phương-thức-hữu-ích">Các phương thức hữu ích</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">StreamMethodsExample</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span>(String<span style="color:#f92672">[]</span> args) {
+</span></span><span style="display:flex;"><span>        List<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;</span> numbers <span style="color:#f92672">=</span> Arrays.<span style="color:#a6e22e">asList</span>(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// distinct() - Loại bỏ duplicate</span>
+</span></span><span style="display:flex;"><span>        List<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;</span> duplicates <span style="color:#f92672">=</span> Arrays.<span style="color:#a6e22e">asList</span>(1, 2, 2, 3, 3, 3, 4);
+</span></span><span style="display:flex;"><span>        List<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;</span> unique <span style="color:#f92672">=</span> duplicates.<span style="color:#a6e22e">stream</span>()
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">distinct</span>()
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">collect</span>(Collectors.<span style="color:#a6e22e">toList</span>());
+</span></span><span style="display:flex;"><span>        System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;Unique: &#34;</span> <span style="color:#f92672">+</span> unique);
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// limit() - Giới hạn số phần tử</span>
+</span></span><span style="display:flex;"><span>        List<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;</span> first5 <span style="color:#f92672">=</span> numbers.<span style="color:#a6e22e">stream</span>()
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">limit</span>(5)
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">collect</span>(Collectors.<span style="color:#a6e22e">toList</span>());
+</span></span><span style="display:flex;"><span>        System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;5 phần tử đầu: &#34;</span> <span style="color:#f92672">+</span> first5);
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// skip() - Bỏ qua n phần tử đầu</span>
+</span></span><span style="display:flex;"><span>        List<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;</span> skipFirst3 <span style="color:#f92672">=</span> numbers.<span style="color:#a6e22e">stream</span>()
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">skip</span>(3)
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">collect</span>(Collectors.<span style="color:#a6e22e">toList</span>());
+</span></span><span style="display:flex;"><span>        System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;Bỏ 3 phần tử đầu: &#34;</span> <span style="color:#f92672">+</span> skipFirst3);
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// anyMatch() - Có phần tử nào thỏa mãn không</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">boolean</span> hasEven <span style="color:#f92672">=</span> numbers.<span style="color:#a6e22e">stream</span>()
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">anyMatch</span>(n <span style="color:#f92672">-&gt;</span> n <span style="color:#f92672">%</span> 2 <span style="color:#f92672">==</span> 0);
+</span></span><span style="display:flex;"><span>        System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;Có số chẵn: &#34;</span> <span style="color:#f92672">+</span> hasEven);
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// allMatch() - Tất cả đều thỏa mãn không</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">boolean</span> allPositive <span style="color:#f92672">=</span> numbers.<span style="color:#a6e22e">stream</span>()
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">allMatch</span>(n <span style="color:#f92672">-&gt;</span> n <span style="color:#f92672">&gt;</span> 0);
+</span></span><span style="display:flex;"><span>        System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;Tất cả đều dương: &#34;</span> <span style="color:#f92672">+</span> allPositive);
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// noneMatch() - Không có phần tử nào thỏa mãn</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">boolean</span> noNegative <span style="color:#f92672">=</span> numbers.<span style="color:#a6e22e">stream</span>()
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">noneMatch</span>(n <span style="color:#f92672">-&gt;</span> n <span style="color:#f92672">&lt;</span> 0);
+</span></span><span style="display:flex;"><span>        System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;Không có số âm: &#34;</span> <span style="color:#f92672">+</span> noNegative);
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// findFirst() - Tìm phần tử đầu tiên</span>
+</span></span><span style="display:flex;"><span>        Optional<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;</span> first <span style="color:#f92672">=</span> numbers.<span style="color:#a6e22e">stream</span>()
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">filter</span>(n <span style="color:#f92672">-&gt;</span> n <span style="color:#f92672">&gt;</span> 5)
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">findFirst</span>();
+</span></span><span style="display:flex;"><span>        first.<span style="color:#a6e22e">ifPresent</span>(n <span style="color:#f92672">-&gt;</span> System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;Số đầu tiên &gt; 5: &#34;</span> <span style="color:#f92672">+</span> n));
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// findAny() - Tìm phần tử bất kỳ</span>
+</span></span><span style="display:flex;"><span>        Optional<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;</span> any <span style="color:#f92672">=</span> numbers.<span style="color:#a6e22e">stream</span>()
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">filter</span>(n <span style="color:#f92672">-&gt;</span> n <span style="color:#f92672">%</span> 2 <span style="color:#f92672">==</span> 0)
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">findAny</span>();
+</span></span><span style="display:flex;"><span>        any.<span style="color:#a6e22e">ifPresent</span>(n <span style="color:#f92672">-&gt;</span> System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;Số chẵn bất kỳ: &#34;</span> <span style="color:#f92672">+</span> n));
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="flatmap---làm-phẳng-stream">FlatMap - Làm phẳng Stream</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">FlatMapExample</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span>(String<span style="color:#f92672">[]</span> args) {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// List của List</span>
+</span></span><span style="display:flex;"><span>        List<span style="color:#f92672">&lt;</span>List<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;&gt;</span> nestedList <span style="color:#f92672">=</span> Arrays.<span style="color:#a6e22e">asList</span>(
+</span></span><span style="display:flex;"><span>            Arrays.<span style="color:#a6e22e">asList</span>(1, 2, 3),
+</span></span><span style="display:flex;"><span>            Arrays.<span style="color:#a6e22e">asList</span>(4, 5, 6),
+</span></span><span style="display:flex;"><span>            Arrays.<span style="color:#a6e22e">asList</span>(7, 8, 9)
+</span></span><span style="display:flex;"><span>        );
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Làm phẳng thành List đơn</span>
+</span></span><span style="display:flex;"><span>        List<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;</span> flatList <span style="color:#f92672">=</span> nestedList.<span style="color:#a6e22e">stream</span>()
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">flatMap</span>(list <span style="color:#f92672">-&gt;</span> list.<span style="color:#a6e22e">stream</span>())
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">collect</span>(Collectors.<span style="color:#a6e22e">toList</span>());
+</span></span><span style="display:flex;"><span>        System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;Flat list: &#34;</span> <span style="color:#f92672">+</span> flatList);
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// [1, 2, 3, 4, 5, 6, 7, 8, 9]</span>
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Ví dụ với String</span>
+</span></span><span style="display:flex;"><span>        List<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> sentences <span style="color:#f92672">=</span> Arrays.<span style="color:#a6e22e">asList</span>(
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;Hello World&#34;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;Java Stream API&#34;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;FlatMap Example&#34;</span>
+</span></span><span style="display:flex;"><span>        );
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Lấy tất cả các từ</span>
+</span></span><span style="display:flex;"><span>        List<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> words <span style="color:#f92672">=</span> sentences.<span style="color:#a6e22e">stream</span>()
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">flatMap</span>(sentence <span style="color:#f92672">-&gt;</span> Arrays.<span style="color:#a6e22e">stream</span>(sentence.<span style="color:#a6e22e">split</span>(<span style="color:#e6db74">&#34; &#34;</span>)))
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">collect</span>(Collectors.<span style="color:#a6e22e">toList</span>());
+</span></span><span style="display:flex;"><span>        System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;Words: &#34;</span> <span style="color:#f92672">+</span> words);
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// [Hello, World, Java, Stream, API, FlatMap, Example]</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="peek---debug-và-side-effects">Peek - Debug và Side Effects</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">PeekExample</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span>(String<span style="color:#f92672">[]</span> args) {
+</span></span><span style="display:flex;"><span>        List<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;</span> numbers <span style="color:#f92672">=</span> Arrays.<span style="color:#a6e22e">asList</span>(1, 2, 3, 4, 5);
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Peek để debug</span>
+</span></span><span style="display:flex;"><span>        List<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;</span> result <span style="color:#f92672">=</span> numbers.<span style="color:#a6e22e">stream</span>()
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">peek</span>(n <span style="color:#f92672">-&gt;</span> System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;Original: &#34;</span> <span style="color:#f92672">+</span> n))
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">map</span>(n <span style="color:#f92672">-&gt;</span> n <span style="color:#f92672">*</span> 2)
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">peek</span>(n <span style="color:#f92672">-&gt;</span> System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;After map: &#34;</span> <span style="color:#f92672">+</span> n))
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">filter</span>(n <span style="color:#f92672">-&gt;</span> n <span style="color:#f92672">&gt;</span> 5)
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">peek</span>(n <span style="color:#f92672">-&gt;</span> System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;After filter: &#34;</span> <span style="color:#f92672">+</span> n))
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">collect</span>(Collectors.<span style="color:#a6e22e">toList</span>());
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;Final result: &#34;</span> <span style="color:#f92672">+</span> result);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="ví-dụ-tổng-hợp---xử-lý-dữ-liệu-phức-tạp">Ví dụ tổng hợp - Xử lý dữ liệu phức tạp</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Product</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> String name;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> String category;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">double</span> price;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">int</span> stock;
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">Product</span>(String name, String category, <span style="color:#66d9ef">double</span> price, <span style="color:#66d9ef">int</span> stock) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span> <span style="color:#f92672">=</span> name;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">category</span> <span style="color:#f92672">=</span> category;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">price</span> <span style="color:#f92672">=</span> price;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">stock</span> <span style="color:#f92672">=</span> stock;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> String <span style="color:#a6e22e">getName</span>() { <span style="color:#66d9ef">return</span> name; }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> String <span style="color:#a6e22e">getCategory</span>() { <span style="color:#66d9ef">return</span> category; }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">double</span> <span style="color:#a6e22e">getPrice</span>() { <span style="color:#66d9ef">return</span> price; }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">getStock</span>() { <span style="color:#66d9ef">return</span> stock; }
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> String <span style="color:#a6e22e">toString</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> name <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34; ($&#34;</span> <span style="color:#f92672">+</span> price <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;, stock: &#34;</span> <span style="color:#f92672">+</span> stock <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;)&#34;</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ProductAnalysis</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span>(String<span style="color:#f92672">[]</span> args) {
+</span></span><span style="display:flex;"><span>        List<span style="color:#f92672">&lt;</span>Product<span style="color:#f92672">&gt;</span> products <span style="color:#f92672">=</span> Arrays.<span style="color:#a6e22e">asList</span>(
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">new</span> Product(<span style="color:#e6db74">&#34;Laptop&#34;</span>, <span style="color:#e6db74">&#34;Electronics&#34;</span>, 1000, 5),
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">new</span> Product(<span style="color:#e6db74">&#34;Phone&#34;</span>, <span style="color:#e6db74">&#34;Electronics&#34;</span>, 500, 10),
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">new</span> Product(<span style="color:#e6db74">&#34;Desk&#34;</span>, <span style="color:#e6db74">&#34;Furniture&#34;</span>, 300, 3),
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">new</span> Product(<span style="color:#e6db74">&#34;Chair&#34;</span>, <span style="color:#e6db74">&#34;Furniture&#34;</span>, 150, 7),
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">new</span> Product(<span style="color:#e6db74">&#34;Monitor&#34;</span>, <span style="color:#e6db74">&#34;Electronics&#34;</span>, 300, 0),
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">new</span> Product(<span style="color:#e6db74">&#34;Tablet&#34;</span>, <span style="color:#e6db74">&#34;Electronics&#34;</span>, 400, 8)
+</span></span><span style="display:flex;"><span>        );
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 1. Tổng giá trị kho hàng theo category</span>
+</span></span><span style="display:flex;"><span>        Map<span style="color:#f92672">&lt;</span>String, Double<span style="color:#f92672">&gt;</span> valueByCategory <span style="color:#f92672">=</span> products.<span style="color:#a6e22e">stream</span>()
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">collect</span>(Collectors.<span style="color:#a6e22e">groupingBy</span>(
+</span></span><span style="display:flex;"><span>                Product::getCategory,
+</span></span><span style="display:flex;"><span>                Collectors.<span style="color:#a6e22e">summingDouble</span>(p <span style="color:#f92672">-&gt;</span> p.<span style="color:#a6e22e">getPrice</span>() <span style="color:#f92672">*</span> p.<span style="color:#a6e22e">getStock</span>())
+</span></span><span style="display:flex;"><span>            ));
+</span></span><span style="display:flex;"><span>        System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;Giá trị kho theo danh mục:&#34;</span>);
+</span></span><span style="display:flex;"><span>        valueByCategory.<span style="color:#a6e22e">forEach</span>((cat, val) <span style="color:#f92672">-&gt;</span> 
+</span></span><span style="display:flex;"><span>            System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(cat <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;: $&#34;</span> <span style="color:#f92672">+</span> val));
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 2. Sản phẩm Electronics có giá &gt; 400</span>
+</span></span><span style="display:flex;"><span>        System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;\nElectronics giá &gt; $400:&#34;</span>);
+</span></span><span style="display:flex;"><span>        products.<span style="color:#a6e22e">stream</span>()
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">filter</span>(p <span style="color:#f92672">-&gt;</span> p.<span style="color:#a6e22e">getCategory</span>().<span style="color:#a6e22e">equals</span>(<span style="color:#e6db74">&#34;Electronics&#34;</span>))
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">filter</span>(p <span style="color:#f92672">-&gt;</span> p.<span style="color:#a6e22e">getPrice</span>() <span style="color:#f92672">&gt;</span> 400)
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">forEach</span>(System.<span style="color:#a6e22e">out</span>::println);
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 3. Top 3 sản phẩm đắt nhất còn hàng</span>
+</span></span><span style="display:flex;"><span>        System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;\nTop 3 đắt nhất (còn hàng):&#34;</span>);
+</span></span><span style="display:flex;"><span>        products.<span style="color:#a6e22e">stream</span>()
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">filter</span>(p <span style="color:#f92672">-&gt;</span> p.<span style="color:#a6e22e">getStock</span>() <span style="color:#f92672">&gt;</span> 0)
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">sorted</span>(Comparator.<span style="color:#a6e22e">comparing</span>(Product::getPrice).<span style="color:#a6e22e">reversed</span>())
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">limit</span>(3)
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">forEach</span>(System.<span style="color:#a6e22e">out</span>::println);
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 4. Số lượng sản phẩm hết hàng</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">long</span> outOfStock <span style="color:#f92672">=</span> products.<span style="color:#a6e22e">stream</span>()
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">filter</span>(p <span style="color:#f92672">-&gt;</span> p.<span style="color:#a6e22e">getStock</span>() <span style="color:#f92672">==</span> 0)
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">count</span>();
+</span></span><span style="display:flex;"><span>        System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;\nSản phẩm hết hàng: &#34;</span> <span style="color:#f92672">+</span> outOfStock);
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 5. Giá trung bình theo category</span>
+</span></span><span style="display:flex;"><span>        Map<span style="color:#f92672">&lt;</span>String, Double<span style="color:#f92672">&gt;</span> avgPriceByCategory <span style="color:#f92672">=</span> products.<span style="color:#a6e22e">stream</span>()
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">collect</span>(Collectors.<span style="color:#a6e22e">groupingBy</span>(
+</span></span><span style="display:flex;"><span>                Product::getCategory,
+</span></span><span style="display:flex;"><span>                Collectors.<span style="color:#a6e22e">averagingDouble</span>(Product::getPrice)
+</span></span><span style="display:flex;"><span>            ));
+</span></span><span style="display:flex;"><span>        System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;\nGiá trung bình theo danh mục:&#34;</span>);
+</span></span><span style="display:flex;"><span>        avgPriceByCategory.<span style="color:#a6e22e">forEach</span>((cat, avg) <span style="color:#f92672">-&gt;</span> 
+</span></span><span style="display:flex;"><span>            System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;%s: $%.2f\n&#34;</span>, cat, avg));
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 6. Tất cả sản phẩm Electronics có giá &lt; 1000?</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">boolean</span> allAffordable <span style="color:#f92672">=</span> products.<span style="color:#a6e22e">stream</span>()
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">filter</span>(p <span style="color:#f92672">-&gt;</span> p.<span style="color:#a6e22e">getCategory</span>().<span style="color:#a6e22e">equals</span>(<span style="color:#e6db74">&#34;Electronics&#34;</span>))
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">allMatch</span>(p <span style="color:#f92672">-&gt;</span> p.<span style="color:#a6e22e">getPrice</span>() <span style="color:#f92672">&lt;</span> 1000);
+</span></span><span style="display:flex;"><span>        System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;\nTất cả Electronics &lt; $1000: &#34;</span> <span style="color:#f92672">+</span> allAffordable);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="best-practices">Best Practices</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">StreamBestPractices</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span>(String<span style="color:#f92672">[]</span> args) {
+</span></span><span style="display:flex;"><span>        List<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;</span> numbers <span style="color:#f92672">=</span> Arrays.<span style="color:#a6e22e">asList</span>(1, 2, 3, 4, 5);
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// ✅ GOOD: Sử dụng method reference khi có thể</span>
+</span></span><span style="display:flex;"><span>        numbers.<span style="color:#a6e22e">stream</span>()
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">map</span>(String::valueOf)
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">forEach</span>(System.<span style="color:#a6e22e">out</span>::println);
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// ❌ BAD: Không nên dùng lambda khi có method reference</span>
+</span></span><span style="display:flex;"><span>        numbers.<span style="color:#a6e22e">stream</span>()
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">map</span>(n <span style="color:#f92672">-&gt;</span> String.<span style="color:#a6e22e">valueOf</span>(n))
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">forEach</span>(s <span style="color:#f92672">-&gt;</span> System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(s));
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// ✅ GOOD: Tránh side effects trong stream</span>
+</span></span><span style="display:flex;"><span>        List<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;</span> doubled <span style="color:#f92672">=</span> numbers.<span style="color:#a6e22e">stream</span>()
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">map</span>(n <span style="color:#f92672">-&gt;</span> n <span style="color:#f92672">*</span> 2)
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">collect</span>(Collectors.<span style="color:#a6e22e">toList</span>());
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// ❌ BAD: Side effects (thay đổi external state)</span>
+</span></span><span style="display:flex;"><span>        List<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;</span> result <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ArrayList<span style="color:#f92672">&lt;&gt;</span>();
+</span></span><span style="display:flex;"><span>        numbers.<span style="color:#a6e22e">stream</span>().<span style="color:#a6e22e">forEach</span>(n <span style="color:#f92672">-&gt;</span> result.<span style="color:#a6e22e">add</span>(n <span style="color:#f92672">*</span> 2)); <span style="color:#75715e">// Tránh làm như này</span>
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// ✅ GOOD: Sử dụng parallel stream cho tác vụ CPU-intensive</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> sum <span style="color:#f92672">=</span> numbers.<span style="color:#a6e22e">parallelStream</span>()
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">mapToInt</span>(Integer::intValue)
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">sum</span>();
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// ✅ GOOD: Chain operations một cách hợp lý</span>
+</span></span><span style="display:flex;"><span>        List<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> processed <span style="color:#f92672">=</span> numbers.<span style="color:#a6e22e">stream</span>()
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">filter</span>(n <span style="color:#f92672">-&gt;</span> n <span style="color:#f92672">%</span> 2 <span style="color:#f92672">==</span> 0)
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">map</span>(n <span style="color:#f92672">-&gt;</span> n <span style="color:#f92672">*</span> 2)
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">map</span>(String::valueOf)
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">collect</span>(Collectors.<span style="color:#a6e22e">toList</span>());
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="kết-luận">Kết luận</h2>
+<p>Stream API giúp:</p>
+<ul>
+<li>Code ngắn gọn, dễ đọc hơn</li>
+<li>Xử lý dữ liệu theo phong cách functional</li>
+<li>Dễ dàng chuyển đổi sang xử lý song song</li>
+<li>Giảm thiểu lỗi với immutable operations</li>
+</ul>
+<p><strong>Khi nào nên dùng Stream:</strong></p>
+<ul>
+<li>Xử lý collection với nhiều bước biến đổi</li>
+<li>Cần filter, map, reduce dữ liệu</li>
+<li>Muốn code dễ đọc và maintain</li>
+<li>Cần xử lý song song dễ dàng</li>
+</ul>
+<p><strong>Khi nào KHÔNG nên dùng Stream:</strong></p>
+<ul>
+<li>Loop đơn giản với ít logic</li>
+<li>Cần break/continue giữa chừng</li>
+<li>Performance critical với collection nhỏ</li>
+<li>Cần modify collection gốc</li>
+</ul>
+<h2 id="tài-liệu-tham-khảo">Tài liệu tham khảo</h2>
+<ul>
+<li><a href="https://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html">Java Stream API Guide</a></li>
+<li><a href="https://www.baeldung.com/java-8-streams">Stream API Tutorial</a></li>
+<li><a href="https://docs.oracle.com/javase/8/docs/api/java/util/stream/Collectors.html">Java Stream Collectors</a></li>
+</ul>
+
+    </div>
+</article>
+<style>
+.post-single { max-width: 800px; margin: 0 auto; padding: 80px 24px; }
+.post-header { text-align: center; margin-bottom: 48px; }
+.post-header h1 { font-size: 48px; color: #fff; margin-bottom: 16px; }
+.post-meta { color: #9e9e9e; font-size: 14px; }
+.post-content { color: #d4d4d4; font-size: 16px; line-height: 1.8; }
+.post-content h1, .post-content h2, .post-content h3 { color: #fff; margin-top: 2em; }
+.post-content pre { background: #2b2b2c; padding: 16px; border-radius: 8px; overflow-x: auto; }
+.post-content code { background: #2b2b2c; padding: 2px 6px; border-radius: 4px; }
+.post-content a { color: #ffdb70; }
+</style>
+
+    
+    
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    
+    
+    <script src="/js/profile-new.js"></script>
+</body>
+</html>

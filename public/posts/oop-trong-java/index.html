@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lập trình hướng đối tượng (OOP) trong Java - Blog của Thien Phuc</title>
+    
+    
+    <link rel="stylesheet" href="/css/profile-new.css">
+    
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+         
+        body > header:not(.global-nav),
+        body > nav:first-child:not(.global-nav),
+        .site-header,
+        .main-header {
+            display: none !important;
+        }
+        
+        body {
+            margin: 0 !important;
+            padding: 0 !important;
+            font-family: 'Poppins', sans-serif !important;
+            background: #1e1e1f !important;
+            color: #d4d4d4 !important;
+        }
+    </style>
+</head>
+<body>
+    
+<style>
+body > header:not(.global-nav), body > nav:first-child:not(.global-nav) { display: none !important; }
+</style>
+
+<nav class="global-nav">
+    <div class="nav-container">
+        <a href="/" class="nav-logo">Blog của Thien Phuc</a>
+        <ul class="nav-menu">
+            <li><a href="/" class="nav-link">Home</a></li>
+            <li><a href="/posts/" class="nav-link">Blog</a></li>
+            <li><a href="/about/" class="nav-link">Profile</a></li>
+            <li><a href="/tags/" class="nav-link">Tags</a></li>
+        </ul>
+    </div>
+</nav>
+
+<article class="post-single">
+    <header class="post-header">
+        <h1>Lập trình hướng đối tượng (OOP) trong Java</h1>
+        <div class="post-meta">
+            <time>21/10/2025</time>
+            
+            <span>•</span>
+            <span>Java</span>
+            
+        </div>
+    </header>
+    
+    <div class="post-content">
+        <h1 id="lập-trình-hướng-đối-tượng-trong-java">Lập trình hướng đối tượng trong Java</h1>
+<p>OOP (Object-Oriented Programming) là nền tảng của Java với 4 tính chất cơ bản.</p>
+<h2 id="4-tính-chất-của-oop">4 Tính chất của OOP</h2>
+<h3 id="1-tính-đóng-gói-encapsulation">1. Tính đóng gói (Encapsulation)</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">BankAccount</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">double</span> balance;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> String accountNumber;
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">BankAccount</span>(String accountNumber, <span style="color:#66d9ef">double</span> initialBalance) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">accountNumber</span> <span style="color:#f92672">=</span> accountNumber;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">balance</span> <span style="color:#f92672">=</span> initialBalance;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Getter</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">double</span> <span style="color:#a6e22e">getBalance</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> balance;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Setter với validation</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">deposit</span>(<span style="color:#66d9ef">double</span> amount) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (amount <span style="color:#f92672">&gt;</span> 0) {
+</span></span><span style="display:flex;"><span>            balance <span style="color:#f92672">+=</span> amount;
+</span></span><span style="display:flex;"><span>            System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;Nạp tiền thành công: &#34;</span> <span style="color:#f92672">+</span> amount);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">withdraw</span>(<span style="color:#66d9ef">double</span> amount) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (amount <span style="color:#f92672">&gt;</span> 0 <span style="color:#f92672">&amp;&amp;</span> amount <span style="color:#f92672">&lt;=</span> balance) {
+</span></span><span style="display:flex;"><span>            balance <span style="color:#f92672">-=</span> amount;
+</span></span><span style="display:flex;"><span>            System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;Rút tiền thành công: &#34;</span> <span style="color:#f92672">+</span> amount);
+</span></span><span style="display:flex;"><span>        } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>            System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;Số dư không đủ!&#34;</span>);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="2-tính-kế-thừa-inheritance">2. Tính kế thừa (Inheritance)</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#75715e">// Lớp cha</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Animal</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">protected</span> String name;
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">Animal</span>(String name) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span> <span style="color:#f92672">=</span> name;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">eat</span>() {
+</span></span><span style="display:flex;"><span>        System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(name <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34; đang ăn&#34;</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Lớp con</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Dog</span> <span style="color:#66d9ef">extends</span> Animal {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">Dog</span>(String name) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">super</span>(name);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">bark</span>() {
+</span></span><span style="display:flex;"><span>        System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(name <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34; đang sủa: Woof!&#34;</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">eat</span>() {
+</span></span><span style="display:flex;"><span>        System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(name <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34; đang ăn thức ăn cho chó&#34;</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="3-tính-đa-hình-polymorphism">3. Tính đa hình (Polymorphism)</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Calculator</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Method overloading - Đa hình compile-time</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">add</span>(<span style="color:#66d9ef">int</span> a, <span style="color:#66d9ef">int</span> b) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> a <span style="color:#f92672">+</span> b;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">double</span> <span style="color:#a6e22e">add</span>(<span style="color:#66d9ef">double</span> a, <span style="color:#66d9ef">double</span> b) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> a <span style="color:#f92672">+</span> b;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">add</span>(<span style="color:#66d9ef">int</span> a, <span style="color:#66d9ef">int</span> b, <span style="color:#66d9ef">int</span> c) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> a <span style="color:#f92672">+</span> b <span style="color:#f92672">+</span> c;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Method overriding - Đa hình runtime</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span>(String<span style="color:#f92672">[]</span> args) {
+</span></span><span style="display:flex;"><span>    Animal myDog <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Dog(<span style="color:#e6db74">&#34;Buddy&#34;</span>);
+</span></span><span style="display:flex;"><span>    myDog.<span style="color:#a6e22e">eat</span>(); <span style="color:#75715e">// Gọi method của Dog (override)</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="4-tính-trừu-tượng-abstraction">4. Tính trừu tượng (Abstraction)</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#75715e">// Abstract class</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">abstract</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Shape</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">protected</span> String color;
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">Shape</span>(String color) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">color</span> <span style="color:#f92672">=</span> color;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Abstract method</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">abstract</span> <span style="color:#66d9ef">double</span> <span style="color:#a6e22e">calculateArea</span>();
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Concrete method</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">displayColor</span>() {
+</span></span><span style="display:flex;"><span>        System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;Màu sắc: &#34;</span> <span style="color:#f92672">+</span> color);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Implement abstract class</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Circle</span> <span style="color:#66d9ef">extends</span> Shape {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">double</span> radius;
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">Circle</span>(String color, <span style="color:#66d9ef">double</span> radius) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">super</span>(color);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">radius</span> <span style="color:#f92672">=</span> radius;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">double</span> <span style="color:#a6e22e">calculateArea</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> Math.<span style="color:#a6e22e">PI</span> <span style="color:#f92672">*</span> radius <span style="color:#f92672">*</span> radius;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="interface-trong-java">Interface trong Java</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">Drawable</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">draw</span>();
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Default method (Java 8+)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">default</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">print</span>() {
+</span></span><span style="display:flex;"><span>        System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;Đang in hình...&#34;</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Rectangle</span> <span style="color:#66d9ef">implements</span> Drawable {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">double</span> width, height;
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">Rectangle</span>(<span style="color:#66d9ef">double</span> width, <span style="color:#66d9ef">double</span> height) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">width</span> <span style="color:#f92672">=</span> width;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">height</span> <span style="color:#f92672">=</span> height;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">draw</span>() {
+</span></span><span style="display:flex;"><span>        System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;Vẽ hình chữ nhật: &#34;</span> <span style="color:#f92672">+</span> width <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;x&#34;</span> <span style="color:#f92672">+</span> height);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="ví-dụ-thực-tế">Ví dụ thực tế</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Main</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span>(String<span style="color:#f92672">[]</span> args) {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Tạo tài khoản</span>
+</span></span><span style="display:flex;"><span>        BankAccount account <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> BankAccount(<span style="color:#e6db74">&#34;123456&#34;</span>, 1000);
+</span></span><span style="display:flex;"><span>        account.<span style="color:#a6e22e">deposit</span>(500);
+</span></span><span style="display:flex;"><span>        account.<span style="color:#a6e22e">withdraw</span>(200);
+</span></span><span style="display:flex;"><span>        System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;Số dư: &#34;</span> <span style="color:#f92672">+</span> account.<span style="color:#a6e22e">getBalance</span>());
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Sử dụng kế thừa</span>
+</span></span><span style="display:flex;"><span>        Dog dog <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Dog(<span style="color:#e6db74">&#34;Rex&#34;</span>);
+</span></span><span style="display:flex;"><span>        dog.<span style="color:#a6e22e">eat</span>();
+</span></span><span style="display:flex;"><span>        dog.<span style="color:#a6e22e">bark</span>();
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Sử dụng abstraction</span>
+</span></span><span style="display:flex;"><span>        Shape circle <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Circle(<span style="color:#e6db74">&#34;Đỏ&#34;</span>, 5.<span style="color:#a6e22e">0</span>);
+</span></span><span style="display:flex;"><span>        circle.<span style="color:#a6e22e">displayColor</span>();
+</span></span><span style="display:flex;"><span>        System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;Diện tích: &#34;</span> <span style="color:#f92672">+</span> circle.<span style="color:#a6e22e">calculateArea</span>());
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Sử dụng interface</span>
+</span></span><span style="display:flex;"><span>        Drawable rect <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Rectangle(10, 20);
+</span></span><span style="display:flex;"><span>        rect.<span style="color:#a6e22e">draw</span>();
+</span></span><span style="display:flex;"><span>        rect.<span style="color:#a6e22e">print</span>();
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="kết-luận">Kết luận</h2>
+<p>OOP giúp code dễ bảo trì, tái sử dụng và mở rộng. Nắm vững 4 tính chất này là nền tảng để trở thành Java developer giỏi.</p>
+<h2 id="tài-liệu-tham-khảo">Tài liệu tham khảo</h2>
+<ul>
+<li><a href="https://docs.oracle.com/javase/tutorial/java/concepts/">Oracle Java OOP Concepts</a></li>
+<li><a href="https://refactoring.guru/design-patterns/java">Java Design Patterns</a></li>
+</ul>
+
+    </div>
+</article>
+<style>
+.post-single { max-width: 800px; margin: 0 auto; padding: 80px 24px; }
+.post-header { text-align: center; margin-bottom: 48px; }
+.post-header h1 { font-size: 48px; color: #fff; margin-bottom: 16px; }
+.post-meta { color: #9e9e9e; font-size: 14px; }
+.post-content { color: #d4d4d4; font-size: 16px; line-height: 1.8; }
+.post-content h1, .post-content h2, .post-content h3 { color: #fff; margin-top: 2em; }
+.post-content pre { background: #2b2b2c; padding: 16px; border-radius: 8px; overflow-x: auto; }
+.post-content code { background: #2b2b2c; padding: 2px 6px; border-radius: 4px; }
+.post-content a { color: #ffdb70; }
+</style>
+
+    
+    
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    
+    
+    <script src="/js/profile-new.js"></script>
+</body>
+</html>

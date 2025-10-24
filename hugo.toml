@@ -1,0 +1,43 @@
+baseURL = 'https://yourusername.github.io/'
+languageCode = 'vi'
+title = 'Blog của Thien Phuc'
+# theme = "stack"
+
+[params]
+  description = "Blog chia sẻ về Java & JavaScript"
+  author = "Huynh Thien Phuc"
+  ShowReadingTime = true
+  ShowShareButtons = true
+  ShowPostNavLinks = true
+  ShowBreadCrumbs = true
+  ShowCodeCopyButtons = true
+  
+  [params.homeInfoParams]
+    Title = "Chào mừng đến blog của tôi 👋"
+    Content = "Chia sẻ kiến thức về lập trình Java & JavaScript"
+
+[[menu.main]]
+  name = "Home"
+  url = "/"
+  weight = 1
+
+[[menu.main]]
+  name = "Blog"
+  url = "/posts/"
+  weight = 2
+
+[[menu.main]]
+  name = "Profile"
+  url = "/about/"
+  weight = 3
+
+[[menu.main]]
+  name = "Tags"
+  url = "/tags/"
+  weight = 4
+
+[outputs]
+  home = ["HTML"]  # Chỉ output HTML, không cần JSON
+  section = ["HTML"]
+  taxonomy = ["HTML"]
+  term = ["HTML"]

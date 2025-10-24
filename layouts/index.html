@@ -1,0 +1,112 @@
+{{ define "main" }}
+<!-- GLOBAL NAVIGATION -->
+<nav class="global-nav">
+    <div class="nav-container">
+        <a href="/" class="nav-logo">{{ .Site.Title }}</a>
+        <ul class="nav-menu">
+            <li><a href="/" class="nav-link active">Home</a></li>
+            <li><a href="/posts/" class="nav-link">Blog</a></li>
+            <li><a href="/about/" class="nav-link">Profile</a></li>
+            <li><a href="/tags/" class="nav-link">Tags</a></li>
+        </ul>
+    </div>
+</nav>
+
+<!-- HERO SECTION -->
+<section class="hero-section">
+    <div class="hero-content">
+        <h1 class="hero-title">Chào mừng đến blog của tôi 👋</h1>
+        <p class="hero-subtitle">Chia sẻ kiến thức về lập trình Java & JavaScript</p>
+        <div class="hero-buttons">
+            <a href="/posts/" class="btn-primary">Xem bài viết</a>
+            <a href="/about/" class="btn-secondary">Về tôi</a>
+        </div>
+    </div>
+</section>
+
+<!-- RECENT POSTS -->
+<section class="recent-posts-section">
+    <div class="section-container">
+        <h2 class="section-title">Bài viết mới nhất</h2>
+        
+        <div class="posts-grid">
+            {{ range first 6 (where .Site.RegularPages "Type" "posts") }}
+            <article class="post-card">
+                {{ if .Params.image }}
+                <div class="post-image">
+                    <img src="{{ .Params.image }}" alt="{{ .Title }}">
+                </div>
+                {{ end }}
+                
+                <div class="post-content">
+                    <div class="post-meta">
+                        {{ with .Params.categories }}
+                        <span class="post-category">{{ index . 0 }}</span>
+                        {{ end }}
+                        <span class="post-date">{{ .Date.Format "02/01/2006" }}</span>
+                    </div>
+                    
+                    <h3 class="post-title">
+                        <a href="{{ .Permalink }}">{{ .Title }}</a>
+                    </h3>
+                    
+                    <a href="{{ .Permalink }}" class="read-more">
+                        Đọc thêm
+                        <ion-icon name="arrow-forward"></ion-icon>
+                    </a>
+                </div>
+            </article>
+            {{ end }}
+        </div>
+        
+        <div class="view-all">
+            <a href="/posts/" class="btn-primary">Xem tất cả bài viết</a>
+        </div>
+    </div>
+</section>
+
+<!-- FEATURED CATEGORIES -->
+<section class="categories-section">
+    <div class="section-container">
+        <h2 class="section-title">Danh mục</h2>
+        
+        <div class="categories-grid">
+            <a href="/tags/java/" class="category-card">
+                <div class="category-icon">
+                    <ion-icon name="logo-java"></ion-icon>
+                </div>
+                <h3>Java</h3>
+                <p>{{ len (where .Site.Pages "Params.tags" "intersect" (slice "Java")) }} bài viết</p>
+            </a>
+            
+            <a href="/tags/javascript/" class="category-card">
+                <div class="category-icon">
+                    <ion-icon name="logo-javascript"></ion-icon>
+                </div>
+                <h3>JavaScript</h3>
+                <p>{{ len (where .Site.Pages "Params.tags" "intersect" (slice "JavaScript")) }} bài viết</p>
+            </a>
+            
+            <a href="/tags/web-development/" class="category-card">
+                <div class="category-icon">
+                    <ion-icon name="code-slash"></ion-icon>
+                </div>
+                <h3>Web Dev</h3>
+                <p>{{ len (where .Site.Pages "Params.tags" "intersect" (slice "Web Development")) }} bài viết</p>
+            </a>
+            
+            <a href="/tags/tutorial/" class="category-card">
+                <div class="category-icon">
+                    <ion-icon name="book"></ion-icon>
+                </div>
+                <h3>Tutorial</h3>
+                <p>{{ len (where .Site.Pages "Params.tags" "intersect" (slice "Tutorial")) }} bài viết</p>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Ionicons -->
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+{{ end }}

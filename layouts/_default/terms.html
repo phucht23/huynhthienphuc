@@ -1,0 +1,36 @@
+{{ define "main" }}
+<style>
+body > header:not(.global-nav), body > nav:first-child:not(.global-nav) { display: none !important; }
+</style>
+
+<nav class="global-nav">
+    <div class="nav-container">
+        <a href="/" class="nav-logo">{{ .Site.Title }}</a>
+        <ul class="nav-menu">
+            <li><a href="/" class="nav-link">Home</a></li>
+            <li><a href="/posts/" class="nav-link">Blog</a></li>
+            <li><a href="/about/" class="nav-link">Profile</a></li>
+            <li><a href="/tags/" class="nav-link active">Tags</a></li>
+        </ul>
+    </div>
+</nav>
+
+<div class="tags-container">
+    <h1>All Tags</h1>
+    <div class="tags-cloud">
+        {{ range .Data.Terms }}
+        <a href="{{ .Page.Permalink }}" class="tag-item">
+            {{ .Page.Title }} ({{ .Count }})
+        </a>
+        {{ end }}
+    </div>
+</div>
+
+<style>
+.tags-container { max-width: 1200px; margin: 0 auto; padding: 80px 24px; }
+.tags-container h1 { font-size: 48px; color: #fff; text-align: center; margin-bottom: 48px; }
+.tags-cloud { display: flex; flex-wrap: wrap; gap: 16px; justify-content: center; }
+.tag-item { background: #2b2b2c; color: #fff; padding: 12px 24px; border-radius: 8px; text-decoration: none; transition: 0.3s; }
+.tag-item:hover { background: #ffdb70; color: #000; }
+</style>
+{{ end }}
