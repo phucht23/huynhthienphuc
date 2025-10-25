@@ -74,7 +74,6 @@ nav.navbar,
   overflow: hidden;
   border: 4px solid var(--accent-color);
 }
-
 .profile-avatar { width: 100%; height: 100%; object-fit: cover; }
 
 .profile-name {
