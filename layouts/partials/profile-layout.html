@@ -30,7 +30,7 @@
     <aside class="profile-sidebar">
       <div class="profile-card">
         <div class="avatar-wrapper">
-          <img src="/img/1.jpg" alt="{{ .Site.Params.authorName }}" class="profile-avatar">
+          <img src="{{ "images/1.jpg" | relURL }}" alt="{{ .Site.Params.authorName }}" class="profile-avatar">
         </div>
         
         <h1 class="profile-name">{{ .Site.Params.authorName | default "Huỳnh Thiên Phúc" }}</h1>
