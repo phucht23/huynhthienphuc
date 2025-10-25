@@ -1,4 +1,4 @@
-baseURL = 'https://phucht23.github.io/huynhthienphuc'
+baseURL = "https://phucht23.github.io/huynhthienphuc/"
 languageCode = 'vi'
 title = 'Blog của Thien Phuc'
 # theme = "stack"
