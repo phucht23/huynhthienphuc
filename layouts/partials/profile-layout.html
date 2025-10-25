@@ -1,273 +1,329 @@
-<style>
-body > header:not(.global-nav), body > nav:first-child:not(.global-nav) { display: none !important; }
-body { margin: 0 !important; padding: 0 !important; }
-</style>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ .Site.Title }} - Profile</title>
+  <link rel="stylesheet" href="{{ "css/profile-new.css" | relURL }}">
+</head>
+<body>
+  <style>
+    body > header:not(.global-nav), body > nav:first-child:not(.global-nav) { display: none !important; }
+    body { margin: 0 !important; padding: 0 !important; }
+  </style>
 
-<!-- GLOBAL NAVIGATION -->
-<nav class="global-nav">
+  <!-- GLOBAL NAVIGATION -->
+  <nav class="global-nav">
     <div class="nav-container">
-        <a href="/" class="nav-logo">{{ .Site.Title }}</a>
-        <ul class="nav-menu">
-            <li><a href="/" class="nav-link">Home</a></li>
-            <li><a href="/posts/" class="nav-link">Blog</a></li>
-            <li><a href="/about/" class="nav-link active">Profile</a></li>
-            <li><a href="/tags/" class="nav-link">Tags</a></li>
-        </ul>
+      <a href="/" class="nav-logo">{{ .Site.Title }}</a>
+      <ul class="nav-menu">
+        <li><a href="/huynhthienphuc/" class="nav-link">Home</a></li>
+        <li><a href="/huynhthienphuc/posts/" class="nav-link">Blog</a></li>
+        <li><a href="/huynhthienphuc/about/" class="nav-link active">Profile</a></li>
+        <li><a href="/huynhthienphuc/tags/" class="nav-link">Tags</a></li>
+      </ul>
     </div>
-</nav>
+  </nav>
 
-<div class="professional-profile-container">
+  <div class="professional-profile-container">
     <!-- LEFT SIDEBAR -->
     <aside class="profile-sidebar">
-        <div class="profile-card">
-            <div class="avatar-wrapper">
-            <img src="/img/image.jpg" alt="{{ .Site.Params.authorName }}" class="profile-avatar">            </div>
-            
-            <h1 class="profile-name">{{ .Site.Params.authorName | default "Huỳnh Thiên Phúc" }}</h1>
-            <p class="profile-title">{{ .Site.Params.authorTitle | default "Web Developer" }}</p>
-            
-            <button class="contact-toggle-btn" id="contactToggleBtn">
-                <ion-icon name="chevron-down"></ion-icon>
-                <span>Show Contacts</span>
-            </button>
-            
-            <div class="contact-info" id="contactInfo">
-                <div class="divider"></div>
-                
-                <ul class="contact-list">
-                    <li class="contact-item">
-                        <div class="contact-icon">
-                            <ion-icon name="mail-outline"></ion-icon>
-                        </div>
-                        <div class="contact-details">
-                            <p class="contact-label">Email</p>
-                            <a href="mailto:{{ .Site.Params.email }}">{{ .Site.Params.email | default "huynhthienphuc23122003@gmail.com" }}</a>
-                        </div>
-                    </li>
-                    
-                    <li class="contact-item">
-                        <div class="contact-icon">
-                            <ion-icon name="call-outline"></ion-icon>
-                        </div>
-                        <div class="contact-details">
-                            <p class="contact-label">Phone</p>
-                            <a href="tel:{{ .Site.Params.phone }}">{{ .Site.Params.phone | default "0909116627" }}</a>
-                        </div>
-                    </li>
-                    
-                    <li class="contact-item">
-                        <div class="contact-icon">
-                            <ion-icon name="calendar-outline"></ion-icon>
-                        </div>
-                        <div class="contact-details">
-                            <p class="contact-label">Birthday</p>
-                            <time>{{ .Site.Params.birthdate | default "23/12/2003" }}</time>
-                        </div>
-                    </li>
-                    
-                    <li class="contact-item">
-                        <div class="contact-icon">
-                            <ion-icon name="location-outline"></ion-icon>
-                        </div>
-                        <div class="contact-details">
-                            <p class="contact-label">Location</p>
-                            <address>{{ .Site.Params.location | default "Ho Chi Minh City" }}</address>
-                        </div>
-                    </li>
-                </ul>
-                
-                <div class="divider"></div>
-                
-                <ul class="social-links">
-                    {{ if .Site.Params.github }}
-                    <li><a href="{{ .Site.Params.github }}" target="_blank"><ion-icon name="logo-github"></ion-icon></a></li>
-                    {{ end }}
-                    {{ if .Site.Params.linkedin }}
-                    <li><a href="{{ .Site.Params.linkedin }}" target="_blank"><ion-icon name="logo-linkedin"></ion-icon></a></li>
-                    {{ end }}
-                    {{ if .Site.Params.facebook }}
-                    <li><a href="{{ .Site.Params.facebook }}" target="_blank"><ion-icon name="logo-facebook"></ion-icon></a></li>
-                    {{ end }}
-                </ul>
-            </div>
+      <div class="profile-card">
+        <div class="avatar-wrapper">
+          <img src="/img/1.jpg" alt="{{ .Site.Params.authorName }}" class="profile-avatar">
         </div>
+        
+        <h1 class="profile-name">{{ .Site.Params.authorName | default "Huỳnh Thiên Phúc" }}</h1>
+        <p class="profile-title">{{ .Site.Params.authorTitle | default "Web Developer" }}</p>
+        
+        <button class="contact-toggle-btn" id="contactToggleBtn">
+          <ion-icon name="chevron-down"></ion-icon>
+          <span>Show Contacts</span>
+        </button>
+        
+        <div class="contact-info" id="contactInfo">
+          <div class="divider"></div>
+          
+          <ul class="contact-list">
+            <li class="contact-item">
+              <div class="contact-icon">
+                <ion-icon name="mail-outline"></ion-icon>
+              </div>
+              <div class="contact-details">
+                <p class="contact-label">Email</p>
+                <a href="mailto:{{ .Site.Params.email }}">{{ .Site.Params.email | default "huynhthienphuc23122003@gmail.com" }}</a>
+              </div>
+            </li>
+            
+            <li class="contact-item">
+              <div class="contact-icon">
+                <ion-icon name="call-outline"></ion-icon>
+              </div>
+              <div class="contact-details">
+                <p class="contact-label">Phone</p>
+                <a href="tel:{{ .Site.Params.phone }}">{{ .Site.Params.phone | default "0909116627" }}</a>
+              </div>
+            </li>
+            
+            <li class="contact-item">
+              <div class="contact-icon">
+                <ion-icon name="calendar-outline"></ion-icon>
+              </div>
+              <div class="contact-details">
+                <p class="contact-label">Birthday</p>
+                <time>{{ .Site.Params.birthdate | default "23/12/2003" }}</time>
+              </div>
+            </li>
+            
+            <li class="contact-item">
+              <div class="contact-icon">
+                <ion-icon name="location-outline"></ion-icon>
+              </div>
+              <div class="contact-details">
+                <p class="contact-label">Location</p>
+                <address>{{ .Site.Params.location | default "Ho Chi Minh City" }}</address>
+              </div>
+            </li>
+          </ul>
+          
+          <div class="divider"></div>
+          
+          <ul class="social-links">
+            {{ if .Site.Params.github }}
+            <li><a href="{{ .Site.Params.github }}" target="_blank"><ion-icon name="logo-github"></ion-icon></a></li>
+            {{ end }}
+            {{ if .Site.Params.linkedin }}
+            <li><a href="{{ .Site.Params.linkedin }}" target="_blank"><ion-icon name="logo-linkedin"></ion-icon></a></li>
+            {{ end }}
+            {{ if .Site.Params.facebook }}
+            <li><a href="{{ .Site.Params.facebook }}" target="_blank"><ion-icon name="logo-facebook"></ion-icon></a></li>
+            {{ end }}
+          </ul>
+        </div>
+      </div>
     </aside>
 
     <!-- MAIN CONTENT -->
     <main class="profile-main-content">
-        <!-- NAVIGATION TABS -->
-        <nav class="profile-nav">
-            <button class="nav-btn active" data-tab="about">About</button>
-            <button class="nav-btn" data-tab="resume">Resume</button>
-            <button class="nav-btn" data-tab="certificates">Certificates</button>
-            <button class="nav-btn" data-tab="contact">Contact</button>
-        </nav>
+      <!-- NAVIGATION TABS -->
+      <nav class="profile-nav">
+        <button class="nav-btn active" data-tab="about">About</button>
+        <button class="nav-btn" data-tab="resume">Resume</button>
+        <button class="nav-btn" data-tab="certificates">Certificates</button>
+        <button class="nav-btn" data-tab="contact">Contact</button>
+      </nav>
 
-        <!-- ABOUT TAB -->
-        <section class="tab-content active" id="about">
-            <h2 class="section-title">About me</h2>
-            
-            <div class="about-text">
-                <p>Xin chào! Tôi là <strong>Huỳnh Thiên Phúc</strong>, sinh viên ngành Công Nghệ Thông Tin tại Đại học Công Nghệ Hutech. Đam mê lập trình và luôn học hỏi những công nghệ mới.</p>
-                <p>Tôi thích giải quyết các vấn đề phức tạp và xây dựng những sản phẩm có ý nghĩa. Mục tiêu của tôi là trở thành một Full-stack Developer chuyên nghiệp.</p>
+      <!-- ABOUT TAB -->
+      <section class="tab-content active" id="about">
+        <h2 class="section-title">About me</h2>
+        
+        <div class="about-text">
+          <p>Xin chào! Tôi là <strong>Huỳnh Thiên Phúc</strong>, sinh viên ngành Công Nghệ Thông Tin tại Đại học Công Nghệ Hutech. Đam mê lập trình và luôn học hỏi những công nghệ mới.</p>
+          <p>Tôi thích giải quyết các vấn đề phức tạp và xây dựng những sản phẩm có ý nghĩa. Mục tiêu của tôi là trở thành một Full-stack Developer chuyên nghiệp.</p>
+        </div>
+
+        <!-- WHAT I'M DOING -->
+        <h3 class="subsection-title">What I'm doing</h3>
+        
+        <div class="services-grid">
+          <div class="service-card">
+            <div class="service-icon">
+              <ion-icon name="code-slash-outline"></ion-icon>
             </div>
-
-            <!-- WHAT I'M DOING -->
-            <h3 class="subsection-title">What I'm doing</h3>
-            
-            <div class="services-grid">
-                <div class="service-card">
-                    <div class="service-icon">
-                        <ion-icon name="code-slash-outline"></ion-icon>
-                    </div>
-                    <div class="service-content">
-                        <h4>Web Design</h4>
-                    </div>
-                </div>
-
-                <div class="service-card">
-                    <div class="service-icon">
-                        <ion-icon name="laptop-outline"></ion-icon>
-                    </div>
-                    <div class="service-content">
-                        <h4>Web Development</h4>
-                    </div>
-                </div>
-
-                <div class="service-card">
-                    <div class="service-icon">
-                        <ion-icon name="phone-portrait-outline"></ion-icon>
-                    </div>
-                    <div class="service-content">
-                        <h4>Mobile Apps</h4>
-                    </div>
-                </div>
-
-                <div class="service-card">
-                    <div class="service-icon">
-                        <ion-icon name="camera-outline"></ion-icon>
-                    </div>
-                    <div class="service-content">
-                        <h4>Photography</h4>
-                    </div>
-                </div>
+            <div class="service-content">
+              <h4>Web Design</h4>
             </div>
-        </section>
+          </div>
 
-        <!-- RESUME TAB -->
-        <section class="tab-content" id="resume">
-            <h2 class="section-title">Resume</h2>
-            
-            <div class="timeline">
-                <h3 class="timeline-title">
-                    <ion-icon name="book-outline"></ion-icon>
-                    Education
-                </h3>
-                
-                <ol class="timeline-list">
-                    <li class="timeline-item">
-                        <h4>ĐH Công Nghệ Hutech</h4>
-                        <span class="timeline-period">2022 — Present</span>
-                        <p>Đang theo học ngành Công Nghệ Thông Tin, chuyên về Web Development và Software Engineering.</p>
-                    </li>
-                </ol>
+          <div class="service-card">
+            <div class="service-icon">
+              <ion-icon name="laptop-outline"></ion-icon>
             </div>
-
-            <div class="timeline">
-                <h3 class="timeline-title">
-                    <ion-icon name="briefcase-outline"></ion-icon>
-                    Experience
-                </h3>
-                
-                <ol class="timeline-list">
-                    <li class="timeline-item">
-                        <h4>Personal Projects</h4>
-                        <span class="timeline-period">2023 — Present</span>
-                        <p>Phát triển các dự án cá nhân sử dụng React, Java Spring Boot và các công nghệ hiện đại.</p>
-                    </li>
-                </ol>
+            <div class="service-content">
+              <h4>Web Development</h4>
             </div>
+          </div>
 
-            <h3 class="subsection-title">My Skills</h3>
-            
-            <div class="skills-grid">
-                <div class="skill-item">
-                    <div class="skill-header">
-                        <span>Java</span>
-                        <span>85%</span>
-                    </div>
-                    <div class="skill-bar">
-                        <div class="skill-progress" style="width: 85%"></div>
-                    </div>
-                </div>
-
-                <div class="skill-item">
-                    <div class="skill-header">
-                        <span>JavaScript</span>
-                        <span>80%</span>
-                    </div>
-                    <div class="skill-bar">
-                        <div class="skill-progress" style="width: 80%"></div>
-                    </div>
-                </div>
-
-                <div class="skill-item">
-                    <div class="skill-header">
-                        <span>React</span>
-                        <span>75%</span>
-                    </div>
-                    <div class="skill-bar">
-                        <div class="skill-progress" style="width: 75%"></div>
-                    </div>
-                </div>
-
-                <div class="skill-item">
-                    <div class="skill-header">
-                        <span>Spring Boot</span>
-                        <span>70%</span>
-                    </div>
-                    <div class="skill-bar">
-                        <div class="skill-progress" style="width: 70%"></div>
-                    </div>
-                </div>
+          <div class="service-card">
+            <div class="service-icon">
+              <ion-icon name="phone-portrait-outline"></ion-icon>
             </div>
-        </section>
-
-        <!-- CERTIFICATES TAB -->
-        <section class="tab-content" id="certificates">
-            <h2 class="section-title">Certificates</h2>
-            
-            <div class="upload-section">
-                <input type="file" id="certUpload" accept="image/*" multiple hidden>
-                <label for="certUpload" class="upload-btn">
-                    <ion-icon name="cloud-upload-outline"></ion-icon>
-                    <span>Upload Certificate</span>
-                </label>
-                <p class="upload-hint">Click to upload certificate images (JPG, PNG)</p>
+            <div class="service-content">
+              <h4>Mobile Apps</h4>
             </div>
+          </div>
 
-            <div class="certificates-grid" id="certificatesGrid">
-                <!-- Certificates will be displayed here -->
+          <div class="service-card">
+            <div class="service-icon">
+              <ion-icon name="camera-outline"></ion-icon>
             </div>
-        </section>
+            <div class="service-content">
+              <h4>Photography</h4>
+            </div>
+          </div>
+        </div>
+      </section>
 
-        <!-- CONTACT TAB -->
-        <section class="tab-content" id="contact">
-            <h2 class="section-title">Contact</h2>
-            
-            <form class="contact-form" id="contactForm">
-                <div class="form-row">
-                    <input type="text" name="name" placeholder="Full name" required>
-                    <input type="email" name="email" placeholder="Email address" required>
-                </div>
-                
-                <textarea name="message" placeholder="Your Message" rows="6" required></textarea>
-                
-                <button type="submit" class="submit-btn">
-                    <ion-icon name="paper-plane-outline"></ion-icon>
-                    <span>Send Message</span>
-                </button>
-            </form>
-        </section>
+      <!-- RESUME TAB -->
+      <section class="tab-content" id="resume">
+        <h2 class="section-title">Resume</h2>
+        
+        <div class="timeline">
+          <h3 class="timeline-title">
+            <ion-icon name="book-outline"></ion-icon>
+            Education
+          </h3>
+          
+          <ol class="timeline-list">
+            <li class="timeline-item">
+              <h4>ĐH Công Nghệ Hutech</h4>
+              <span class="timeline-period">2022 — Present</span>
+              <p>Đang theo học ngành Công Nghệ Thông Tin, chuyên về Web Development và Software Engineering.</p>
+            </li>
+          </ol>
+        </div>
+
+        <div class="timeline">
+          <h3 class="timeline-title">
+            <ion-icon name="briefcase-outline"></ion-icon>
+            Experience
+          </h3>
+          
+          <ol class="timeline-list">
+            <li class="timeline-item">
+              <h4>Personal Projects</h4>
+              <span class="timeline-period">2023 — Present</span>
+              <p>Phát triển các dự án cá nhân sử dụng React, Java Spring Boot và các công nghệ hiện đại.</p>
+            </li>
+          </ol>
+        </div>
+
+        <h3 class="subsection-title">My Skills</h3>
+        
+        <div class="skills-grid">
+          <div class="skill-item">
+            <div class="skill-header">
+              <span>Java</span>
+              <span>85%</span>
+            </div>
+            <div class="skill-bar">
+              <div class="skill-progress" style="width: 85%"></div>
+            </div>
+          </div>
+
+          <div class="skill-item">
+            <div class="skill-header">
+              <span>JavaScript</span>
+              <span>80%</span>
+            </div>
+            <div class="skill-bar">
+              <div class="skill-progress" style="width: 80%"></div>
+            </div>
+          </div>
+
+          <div class="skill-item">
+            <div class="skill-header">
+              <span>React</span>
+              <span>75%</span>
+            </div>
+            <div class="skill-bar">
+              <div class="skill-progress" style="width: 75%"></div>
+            </div>
+          </div>
+
+          <div class="skill-item">
+            <div class="skill-header">
+              <span>Spring Boot</span>
+              <span>70%</span>
+            </div>
+            <div class="skill-bar">
+              <div class="skill-progress" style="width: 70%"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CERTIFICATES TAB -->
+      <section class="tab-content" id="certificates">
+        <h2 class="section-title">Certificates</h2>
+        
+        <div class="upload-section">
+          <input type="file" id="certUpload" accept="image/*" multiple hidden>
+          <label for="certUpload" class="upload-btn">
+            <ion-icon name="cloud-upload-outline"></ion-icon>
+            <span>Upload Certificate</span>
+          </label>
+          <p class="upload-hint">Click to upload certificate images (JPG, PNG)</p>
+        </div>
+
+        <div class="certificates-grid" id="certificatesGrid">
+          <!-- Certificates will be displayed here -->
+        </div>
+      </section>
+
+      <!-- CONTACT TAB -->
+      <section class="tab-content" id="contact">
+        <h2 class="section-title">Contact</h2>
+        
+        <form class="contact-form" id="contactForm">
+          <div class="form-row">
+            <input type="text" name="name" placeholder="Full name" required>
+            <input type="email" name="email" placeholder="Email address" required>
+          </div>
+          
+          <textarea name="message" placeholder="Your Message" rows="6" required></textarea>
+          
+          <button type="submit" class="submit-btn">
+            <ion-icon name="paper-plane-outline"></ion-icon>
+            <span>Send Message</span>
+          </button>
+        </form>
+      </section>
     </main>
-</div>
+  </div>
+
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+  <script>
+    // Toggle contact info
+    document.getElementById('contactToggleBtn').addEventListener('click', function() {
+      const contactInfo = document.getElementById('contactInfo');
+      contactInfo.classList.toggle('show');
+      this.querySelector('ion-icon').name = contactInfo.classList.contains('show') ? 'chevron-up' : 'chevron-down';
+    });
+
+    // Tab switching
+    document.querySelectorAll('.nav-btn').forEach(button => {
+      button.addEventListener('click', function() {
+        const tab = this.getAttribute('data-tab');
+        document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+        document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+        document.getElementById(tab).classList.add('active');
+        this.classList.add('active');
+      });
+    });
+
+    // Certificate upload
+    document.getElementById('certUpload').addEventListener('change', function(e) {
+      const certificatesGrid = document.getElementById('certificatesGrid');
+      Array.from(e.target.files).forEach(file => {
+        const reader = new FileReader();
+        reader.onload = function(event) {
+          const div = document.createElement('div');
+          div.className = 'certificate-card';
+          div.innerHTML = `<img src="${event.target.result}" alt="Certificate">`;
+          certificatesGrid.appendChild(div);
+        };
+        reader.readAsDataURL(file);
+      });
+    });
+
+    // Contact form submission (basic example)
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      alert('Form submitted! (This is a demo, no actual submission)');
+      this.reset();
+    });
+  </script>
+</body>
+</html>
